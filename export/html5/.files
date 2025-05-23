@@ -1,0 +1,58 @@
+export/html5/bin/assets/data/data-goes-here.txt
+export/html5/bin/assets/images/images-go-here.txt
+export/html5/bin/assets/images/pixivan-free/Back/Base.png
+export/html5/bin/assets/images/pixivan-free/Back/Bow Attack.png
+export/html5/bin/assets/images/pixivan-free/Back/Bow Base.png
+export/html5/bin/assets/images/pixivan-free/Back/Dash.png
+export/html5/bin/assets/images/pixivan-free/Back/Hit.png
+export/html5/bin/assets/images/pixivan-free/Back/Roll.png
+export/html5/bin/assets/images/pixivan-free/Back/Sheate.png
+export/html5/bin/assets/images/pixivan-free/Back/Slash 1.png
+export/html5/bin/assets/images/pixivan-free/Back/Slash 2.png
+export/html5/bin/assets/images/pixivan-free/Back/Unsheate.png
+export/html5/bin/assets/images/pixivan-free/Back/Walk.png
+export/html5/bin/assets/images/pixivan-free/Back Spritesheet.png
+export/html5/bin/assets/images/pixivan-free/Front/Base Base.png
+export/html5/bin/assets/images/pixivan-free/Front/Base.png
+export/html5/bin/assets/images/pixivan-free/Front/Bow Attack.png
+export/html5/bin/assets/images/pixivan-free/Front/Dash.png
+export/html5/bin/assets/images/pixivan-free/Front/Hit.png
+export/html5/bin/assets/images/pixivan-free/Front/Roll.png
+export/html5/bin/assets/images/pixivan-free/Front/Sheate.png
+export/html5/bin/assets/images/pixivan-free/Front/Slash 1.png
+export/html5/bin/assets/images/pixivan-free/Front/Slash 2.png
+export/html5/bin/assets/images/pixivan-free/Front/Unsheate.png
+export/html5/bin/assets/images/pixivan-free/Front/Walk.png
+export/html5/bin/assets/images/pixivan-free/Front Spritesheet.png
+export/html5/bin/assets/images/pixivan-free/Legacy Red Back.aseprite
+export/html5/bin/assets/images/pixivan-free/Legacy Red Front.aseprite
+export/html5/bin/assets/images/pixivan-free/Legacy Red Side.aseprite
+export/html5/bin/assets/images/pixivan-free/Side/Base.png
+export/html5/bin/assets/images/pixivan-free/Side/Bow Attack.png
+export/html5/bin/assets/images/pixivan-free/Side/Bow Base.png
+export/html5/bin/assets/images/pixivan-free/Side/Dash.png
+export/html5/bin/assets/images/pixivan-free/Side/Hit.png
+export/html5/bin/assets/images/pixivan-free/Side/Roll.png
+export/html5/bin/assets/images/pixivan-free/Side/Sheate.png
+export/html5/bin/assets/images/pixivan-free/Side/Slash 1.png
+export/html5/bin/assets/images/pixivan-free/Side/Slash 2.png
+export/html5/bin/assets/images/pixivan-free/Side/Unsheate.png
+export/html5/bin/assets/images/pixivan-free/Side/Walk.png
+export/html5/bin/assets/images/pixivan-free/Side Spritesheet.png
+export/html5/bin/assets/images/pixivan-free/spritesheet-combined - with nums.png
+export/html5/bin/assets/images/pixivan-free/spritesheet-combined.png
+export/html5/bin/assets/music/music-goes-here.txt
+export/html5/bin/assets/sounds/sounds-go-here.txt
+export/html5/bin/flixel/sounds/beep.mp3
+export/html5/bin/flixel/sounds/flixel.mp3
+export/html5/bin/flixel/sounds/beep.ogg
+export/html5/bin/flixel/sounds/flixel.ogg
+export/html5/bin/flixel/fonts/nokiafc22
+export/html5/bin/flixel/fonts/monsterrat
+export/html5/bin/flixel/images/ui/button.png
+export/html5/bin/flixel/images/logo/default.png
+export/html5/bin/flixel/images/transitions/circle.png
+export/html5/bin/flixel/images/transitions/diagonal_gradient.png
+export/html5/bin/flixel/images/transitions/diamond.png
+export/html5/bin/flixel/images/transitions/square.png
+export/html5/bin/manifest/default.json
