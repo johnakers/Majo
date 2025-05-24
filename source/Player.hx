@@ -16,6 +16,8 @@ class Player extends FlxSprite
 	var attackComboCounter:Int = 0;
 
 	public var attacking:Bool = false;
+	public var weaponMap:Map<Int, String> = [0 => "SWORD", 1 => "BOW"];
+	public var weaponIndex:Int = 0;
 
 	var timeToATtack:Float = 0.5;
 	var timer:Float = 0.0;
@@ -86,10 +88,10 @@ class Player extends FlxSprite
 
 	function updateMovement(gamepad:FlxGamepad):Void
 	{
-		// if (gamepad == null)
-		// {
-		// 	throw "For some reason, gamepad here is null and this prints to JS console";
-		// }
+		if (gamepad == null)
+		{
+			throw "For some reason, gamepad here is null and this prints to JS console";
+		}
 
 		// maybe move these to instance variables if we need them for other stuff
 		h = gamepad.getXAxis(LEFT_ANALOG_STICK) * SPEED;
@@ -175,6 +177,7 @@ class Player extends FlxSprite
 
 		// -- the below has the right idea but moves in the wrong direction
 		// -- angle for when we attack we want to move a few pixels in that direction
+		// -- most likely need to normalize the angle based on the player since 0,0 is top left
 		// trace('v: $v, h: $h');
 		// var a = Math.atan2(v, h) * FlxAngle.TO_DEG;
 		// trace(a);

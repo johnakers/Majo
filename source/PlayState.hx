@@ -93,7 +93,7 @@ class PlayState extends FlxState
 		player.attack();
 		// which way is player facing
 		// create hitbox
-		// var hb = new HitBox(player.x, player.y, player.facing);
-		// add(hb);
+		var hb = new HitBox(player.x, player.y, player.facing);
+		add(hb);
 	}
 }
