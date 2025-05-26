@@ -1,9 +1,10 @@
 package;
 
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.util.FlxDirectionFlags;
 
-class HitBox extends FlxObject
+class HitBox extends FlxSprite
 {
 	var timer:Float = 0.0;
 	var ttl:Float = 0.5;
@@ -14,16 +15,16 @@ class HitBox extends FlxObject
 		{
 			case RIGHT:
 				super(x + 8, y - 8);
-				setSize(32, 32);
+				setSize(width, height);
 			case LEFT:
 				super(x - 24, y - 8);
-				setSize(32, 32);
+				setSize(width, height);
 			case UP:
 				super(x - 8, y - 20);
-				setSize(32, 32);
+				setSize(width, height);
 			case DOWN:
 				super(x - 8, y);
-				setSize(32, 32);
+				setSize(width, height);
 			case _:
 		}
 	}

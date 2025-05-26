@@ -2,11 +2,15 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.input.FlxAccelerometer;
 import flixel.input.gamepad.FlxGamepad;
 
 class PlayState extends FlxState
 {
 	var player:Player;
+	var playerSwordHitBox:HitBox;
+	var witch:Witch;
+	var witchHurtBox:HurtBox;
 
 	override public function create()
 	{
@@ -16,9 +20,16 @@ class PlayState extends FlxState
 		FlxG.log.redirectTraces = true;
 		FlxG.mouse.visible = false;
 
+		// ---- entities (should be loaded from map)
 		// --- player
 		player = new Player(FlxG.width / 2, FlxG.height / 2);
 		add(player);
+
+		// --- witch
+		witch = new Witch(FlxG.width / 3, FlxG.height / 2);
+		var witchHurtBox = new HurtBox(witch.x, witch.y - 14, RIGHT, 14, 28);
+		add(witch);
+		add(witchHurtBox);
 
 		// --- camera
 		FlxG.camera.follow(player, TOPDOWN, 1);
@@ -41,6 +52,7 @@ class PlayState extends FlxState
 		{
 			listenForKeys(gamepad);
 		}
+		updateWitch();
 	}
 
 	// for the future: think about Menus
@@ -52,11 +64,10 @@ class PlayState extends FlxState
 		}
 		else if (gamepad.justPressed.Y)
 		{
-			trace("△ pressed");
+			trace("Triangle pressed");
 		}
 		else if (gamepad.justPressed.X)
 		{
-			trace("□ pressed");
 			if (player.attacking)
 			{
 				// wait for animation and combo ?
@@ -64,11 +75,12 @@ class PlayState extends FlxState
 			else
 			{
 				playerAttack();
+				// FlxG.collide(playerSwordHitBox, witchHurtBox, swordAttackCollision);
 			}
 		}
 		else if (gamepad.justPressed.B)
 		{
-			trace("○ pressed");
+			trace("O pressed");
 		}
 		else if (gamepad.justPressed.RIGHT_SHOULDER)
 		{
@@ -88,12 +100,20 @@ class PlayState extends FlxState
 		}
 	}
 
+	private function updateWitch()
+	{
+		// witchHurtBox.x = witch.x;
+		// witchHurtBox.y = witch.y - 14;
+	}
+
 	private function playerAttack()
 	{
 		player.attack();
-		// which way is player facing
-		// create hitbox
-		var hb = new HitBox(player.x, player.y, player.facing);
-		add(hb);
+		playerSwordHitBox = new HitBox(player.x, player.y, player.facing);
+		add(playerSwordHitBox); // calls kill() on self after 0.5s
+
+		// ? this crashes
+		var isEnemyHit = FlxG.pixelPerfectOverlap(witchHurtBox, playerSwordHitBox);
+		trace(isEnemyHit);
 	}
 }

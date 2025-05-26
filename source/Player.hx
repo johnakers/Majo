@@ -3,6 +3,11 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.gamepad.FlxGamepad;
+import flixel.math.FlxAngle;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxDirectionFlags;
 
 class Player extends FlxSprite
@@ -19,7 +24,7 @@ class Player extends FlxSprite
 	public var weaponMap:Map<Int, String> = [0 => "SWORD", 1 => "BOW"];
 	public var weaponIndex:Int = 0;
 
-	var timeToATtack:Float = 0.5;
+	var timeToATtack:Float = 0.25;
 	var timer:Float = 0.0;
 	var h:Float;
 	var v:Float;
@@ -43,15 +48,15 @@ class Player extends FlxSprite
 		animation.add("d_idle", [53]);
 		animation.add("s_idle", [0]);
 		animation.add("u_idle", [104]);
-		animation.add("d_walk", frameRangeArray(98, 103), 12);
-		animation.add("s_walk", frameRangeArray(46, 51), 12);
-		animation.add("u_walk", frameRangeArray(150, 155), 12);
-		animation.add("u_slash0", frameRangeArray(135, 140), 12);
-		animation.add("u_slash1", frameRangeArray(141, 146), 12);
-		animation.add("d_slash0", frameRangeArray(83, 88), 12);
-		animation.add("d_slash1", frameRangeArray(89, 94), 12);
-		animation.add("s_slash0", frameRangeArray(31, 36), 12);
-		animation.add("s_slash1", frameRangeArray(37, 42), 12);
+		animation.add("d_walk", frameRangeArray(98, 103), 24);
+		animation.add("s_walk", frameRangeArray(46, 51), 24);
+		animation.add("u_walk", frameRangeArray(150, 155), 24);
+		animation.add("u_slash0", frameRangeArray(135, 140), 24);
+		animation.add("u_slash1", frameRangeArray(141, 146), 24);
+		animation.add("d_slash0", frameRangeArray(83, 88), 24);
+		animation.add("d_slash1", frameRangeArray(89, 94), 24);
+		animation.add("s_slash0", frameRangeArray(31, 36), 24);
+		animation.add("s_slash1", frameRangeArray(37, 42), 24);
 
 		// friction
 		drag.x = drag.y = 900;
@@ -81,7 +86,6 @@ class Player extends FlxSprite
 			{
 				timer = 0;
 				attacking = false;
-				trace("attacking: false");
 			}
 		}
 	}
@@ -185,11 +189,27 @@ class Player extends FlxSprite
 		// var dx = d * Math.sin(a);
 		// var dy = d * Math.cos(a);
 		// trace('dx: $dx, dy: $dy');
-		// FlxTween.tween(this, {
-		// 	x: x + dx,
-		// 	y: y + dy
-		// }, 0.1, {
-		// 	ease: FlxEase.circOut,
-		// });
+		var dx:Int = 0;
+		var dy:Int = 0;
+		var increment:Int = 10;
+		switch (facing)
+		{
+			case LEFT:
+				dx = -1 * increment;
+			case RIGHT:
+				dx = increment;
+			case UP:
+				dy = -1 * increment;
+			case DOWN:
+				dy = increment;
+			case _:
+		}
+
+		FlxTween.tween(this, {
+			x: x + dx,
+			y: y + dy
+		}, 0.1, {
+			ease: FlxEase.circOut,
+		});
 	}
 }

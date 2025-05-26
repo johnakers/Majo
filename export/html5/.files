@@ -41,8 +41,26 @@ export/html5/bin/assets/images/pixivan-free/Side/Walk.png
 export/html5/bin/assets/images/pixivan-free/Side Spritesheet.png
 export/html5/bin/assets/images/pixivan-free/spritesheet-combined - with nums.png
 export/html5/bin/assets/images/pixivan-free/spritesheet-combined.png
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Blacksmith.aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Decorations.aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Fisherman.aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Herbalist.aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Merchandise.aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Miner .aseprite
+export/html5/bin/assets/images/pixivan-traders/@Aseprite/Potion Maker.ase
+export/html5/bin/assets/images/pixivan-traders/Blacksmith/Idle Checking.png
+export/html5/bin/assets/images/pixivan-traders/Blacksmith/Idle Working.png
+export/html5/bin/assets/images/pixivan-traders/Decorations.png
+export/html5/bin/assets/images/pixivan-traders/Herbalist/Idle Adding.png
+export/html5/bin/assets/images/pixivan-traders/Herbalist/Idle Mixing.png
+export/html5/bin/assets/images/pixivan-traders/Potion Maker/Idle Bored.png
+export/html5/bin/assets/images/pixivan-traders/Potion Maker/Idle Research.png
+export/html5/bin/assets/images/pixivan-traders/Simple NPC/Fisherman.png
+export/html5/bin/assets/images/pixivan-traders/Simple NPC/Merchandise.png
+export/html5/bin/assets/images/pixivan-traders/Simple NPC/Miner.png
 export/html5/bin/assets/music/music-goes-here.txt
 export/html5/bin/assets/sounds/sounds-go-here.txt
+export/html5/bin/assets/sounds/sword-swipe.wav
 export/html5/bin/flixel/sounds/beep.mp3
 export/html5/bin/flixel/sounds/flixel.mp3
 export/html5/bin/flixel/sounds/beep.ogg
