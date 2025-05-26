@@ -37,9 +37,15 @@ class Witch extends FlxSprite
 
 	public function hitBy(playerFacing:FlxDirectionFlags)
 	{
+		knockback(20, playerFacing);
+		hitPoints--;
+	}
+
+	private function knockback(increment:Int, playerFacing:FlxDirectionFlags)
+	{
 		var dx:Int = 0;
 		var dy:Int = 0;
-		var increment:Int = 20;
+
 		switch (playerFacing)
 		{
 			case LEFT:
@@ -59,7 +65,5 @@ class Witch extends FlxSprite
 		}, 0.1, {
 			ease: FlxEase.circOut,
 		});
-
-		hitPoints--;
 	}
 }

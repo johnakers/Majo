@@ -189,9 +189,14 @@ class Player extends FlxSprite
 		// var dx = d * Math.sin(a);
 		// var dy = d * Math.cos(a);
 		// trace('dx: $dx, dy: $dy');
+		knockback(10);
+	}
+
+	private function knockback(increment:Int)
+	{
 		var dx:Int = 0;
 		var dy:Int = 0;
-		var increment:Int = 10;
+
 		switch (facing)
 		{
 			case LEFT:

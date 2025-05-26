@@ -16,17 +16,17 @@
 #include <flixel/util/IFlxDestroyable.h>
 #endif
 
-HX_DEFINE_STACK_FRAME(_hx_pos_9a88b067e58f7553_12_new,"HurtBox","new",0x4bea540e,"HurtBox.new","HurtBox.hx",12,0x69f46722)
-HX_LOCAL_STACK_FRAME(_hx_pos_9a88b067e58f7553_22_update,"HurtBox","update",0x2726031b,"HurtBox.update","HurtBox.hx",22,0x69f46722)
+HX_DEFINE_STACK_FRAME(_hx_pos_9a88b067e58f7553_10_new,"HurtBox","new",0x4bea540e,"HurtBox.new","HurtBox.hx",10,0x69f46722)
+HX_LOCAL_STACK_FRAME(_hx_pos_9a88b067e58f7553_20_update,"HurtBox","update",0x2726031b,"HurtBox.update","HurtBox.hx",20,0x69f46722)
 
 void HurtBox_obj::__construct(Float x,Float y,::hx::Null< int >  __o_playerFacing,::hx::Null< int >  __o_width,::hx::Null< int >  __o_height){
             		int playerFacing = __o_playerFacing.Default(16);
             		int width = __o_width.Default(32);
             		int height = __o_height.Default(32);
-            	HX_STACKFRAME(&_hx_pos_9a88b067e58f7553_12_new)
-HXLINE(  13)		super::__construct(x,y,null());
-HXLINE(  15)		this->debugBoundingBoxColor = -16711681;
-HXLINE(  17)		this->setSize(( (Float)(width) ),( (Float)(height) ));
+            	HX_STACKFRAME(&_hx_pos_9a88b067e58f7553_10_new)
+HXLINE(  11)		super::__construct(x,y,null());
+HXLINE(  13)		this->debugBoundingBoxColor = -16711681;
+HXLINE(  15)		this->setSize(( (Float)(width) ),( (Float)(height) ));
             	}
 
 Dynamic HurtBox_obj::__CreateEmpty() { return new HurtBox_obj; }
@@ -53,8 +53,8 @@ bool HurtBox_obj::_hx_isInstanceOf(int inClassId) {
 }
 
 void HurtBox_obj::update(Float elapsed){
-            	HX_STACKFRAME(&_hx_pos_9a88b067e58f7553_22_update)
-HXDLIN(  22)		this->super::update(elapsed);
+            	HX_STACKFRAME(&_hx_pos_9a88b067e58f7553_20_update)
+HXDLIN(  20)		this->super::update(elapsed);
             	}
 
 

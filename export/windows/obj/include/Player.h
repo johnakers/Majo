@@ -78,6 +78,9 @@ class HXCPP_CLASS_ATTRIBUTES Player_obj : public  ::flixel::FlxSprite_obj
 		void attack();
 		::Dynamic attack_dyn();
 
+		void knockback(int increment);
+		::Dynamic knockback_dyn();
+
 };
 
 

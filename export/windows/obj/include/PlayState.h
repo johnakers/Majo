@@ -73,6 +73,12 @@ class HXCPP_CLASS_ATTRIBUTES PlayState_obj : public  ::flixel::FlxState_obj
 		void playerAttack();
 		::Dynamic playerAttack_dyn();
 
+		void notifyHit( ::HurtBox witchHurtBox, ::HitBox playerSwordHitBox);
+		::Dynamic notifyHit_dyn();
+
+		bool processHit( ::HurtBox witchHurtBox, ::HitBox playerSwordHitBox);
+		::Dynamic processHit_dyn();
+
 };
 
 

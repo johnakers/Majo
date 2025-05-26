@@ -81,9 +81,6 @@
 #ifndef INCLUDED_flixel_system_frontEnds_LogFrontEnd
 #include <flixel/system/frontEnds/LogFrontEnd.h>
 #endif
-#ifndef INCLUDED_flixel_util_FlxCollision
-#include <flixel/util/FlxCollision.h>
-#endif
 #ifndef INCLUDED_flixel_util_IFlxDestroyable
 #include <flixel/util/IFlxDestroyable.h>
 #endif
@@ -98,8 +95,10 @@ HX_DEFINE_STACK_FRAME(_hx_pos_af23706db05c7feb_8_new,"PlayState","new",0xf8bf96c
 HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_16_create,"PlayState","create",0x82220fed,"PlayState.create","PlayState.hx",16,0xb30d7781)
 HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_42_update,"PlayState","update",0x8d182efa,"PlayState.update","PlayState.hx",42,0xb30d7781)
 HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_61_listenForKeys,"PlayState","listenForKeys",0x80e65b45,"PlayState.listenForKeys","PlayState.hx",61,0xb30d7781)
-HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_104_updateWitch,"PlayState","updateWitch",0xb95581ed,"PlayState.updateWitch","PlayState.hx",104,0xb30d7781)
-HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_110_playerAttack,"PlayState","playerAttack",0xf7370dba,"PlayState.playerAttack","PlayState.hx",110,0xb30d7781)
+HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_103_updateWitch,"PlayState","updateWitch",0xb95581ed,"PlayState.updateWitch","PlayState.hx",103,0xb30d7781)
+HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_109_playerAttack,"PlayState","playerAttack",0xf7370dba,"PlayState.playerAttack","PlayState.hx",109,0xb30d7781)
+HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_121_notifyHit,"PlayState","notifyHit",0x8b310ab9,"PlayState.notifyHit","PlayState.hx",121,0xb30d7781)
+HX_LOCAL_STACK_FRAME(_hx_pos_af23706db05c7feb_125_processHit,"PlayState","processHit",0x6334c095,"PlayState.processHit","PlayState.hx",125,0xb30d7781)
 
 void PlayState_obj::__construct(){
             	HX_STACKFRAME(&_hx_pos_af23706db05c7feb_8_new)
@@ -146,9 +145,9 @@ HXLINE(  21)		::flixel::FlxG_obj::mouse->set_visible(false);
 HXLINE(  25)		this->player =  ::Player_obj::__alloc( HX_CTX ,(( (Float)(::flixel::FlxG_obj::width) ) / ( (Float)(2) )),(( (Float)(::flixel::FlxG_obj::height) ) / ( (Float)(2) )));
 HXLINE(  26)		this->add(this->player);
 HXLINE(  29)		this->witch =  ::Witch_obj::__alloc( HX_CTX ,(( (Float)(::flixel::FlxG_obj::width) ) / ( (Float)(3) )),(( (Float)(::flixel::FlxG_obj::height) ) / ( (Float)(2) )));
-HXLINE(  30)		 ::HurtBox witchHurtBox =  ::HurtBox_obj::__alloc( HX_CTX ,this->witch->x,(this->witch->y - ( (Float)(14) )),16,14,28);
+HXLINE(  30)		this->witchHurtBox =  ::HurtBox_obj::__alloc( HX_CTX ,this->witch->x,(this->witch->y - ( (Float)(14) )),16,14,28);
 HXLINE(  31)		this->add(this->witch);
-HXLINE(  32)		this->add(witchHurtBox);
+HXLINE(  32)		this->add(this->witchHurtBox);
 HXLINE(  35)		::flixel::FlxG_obj::camera->follow(this->player,::flixel::FlxCameraFollowStyle_obj::TOPDOWN_dyn(),1);
 HXLINE(  38)		this->super::create();
             	}
@@ -162,9 +161,9 @@ HXLINE(  47)		if (::hx::IsNull( gamepad )) {
 HXLINE(  49)			HX_STACK_DO_THROW(::haxe::Exception_obj::thrown(HX_("No gamepad connected",0b,ff,98,87)));
             		}
             		else {
-HXLINE(  53)			this->listenForKeys(gamepad);
+HXLINE(  53)			this->updateWitch();
+HXLINE(  54)			this->listenForKeys(gamepad);
             		}
-HXLINE(  55)		this->updateWitch();
             	}
 
 
@@ -259,149 +258,149 @@ HXLINE(  77)						this->playerAttack();
             					}
             				}
             				else {
-HXLINE(  81)					 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
-HXDLIN(  81)					int id = 1;
-HXDLIN(  81)					 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
-HXDLIN(  81)					int Status = _this->status;
-HXDLIN(  81)					bool _hx_tmp;
-HXDLIN(  81)					switch((int)(id)){
+HXLINE(  80)					 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
+HXDLIN(  80)					int id = 1;
+HXDLIN(  80)					 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
+HXDLIN(  80)					int Status = _this->status;
+HXDLIN(  80)					bool _hx_tmp;
+HXDLIN(  80)					switch((int)(id)){
             						case (int)-2: {
-HXLINE(  81)							_hx_tmp = _this1->anyButton(Status);
+HXLINE(  80)							_hx_tmp = _this1->anyButton(Status);
             						}
             						break;
             						case (int)-1: {
-HXLINE(  81)							_hx_tmp = !(_this1->anyButton(Status));
+HXLINE(  80)							_hx_tmp = !(_this1->anyButton(Status));
             						}
             						break;
             						default:{
-HXLINE(  81)							int RawID = ( (int)(_this1->mapping->getRawID(id)) );
-HXDLIN(  81)							 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
-HXDLIN(  81)							if (::hx::IsNotNull( button )) {
-HXLINE(  81)								_hx_tmp = button->hasState(Status);
+HXLINE(  80)							int RawID = ( (int)(_this1->mapping->getRawID(id)) );
+HXDLIN(  80)							 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
+HXDLIN(  80)							if (::hx::IsNotNull( button )) {
+HXLINE(  80)								_hx_tmp = button->hasState(Status);
             							}
             							else {
-HXLINE(  81)								_hx_tmp = false;
+HXLINE(  80)								_hx_tmp = false;
             							}
             						}
             					}
-HXDLIN(  81)					if (_hx_tmp) {
-HXLINE(  83)						::haxe::Log_obj::trace(HX_("O pressed",d1,7d,b4,78),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),83,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
+HXDLIN(  80)					if (_hx_tmp) {
+HXLINE(  82)						::haxe::Log_obj::trace(HX_("O pressed",d1,7d,b4,78),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),82,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
             					}
             					else {
-HXLINE(  85)						 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
-HXDLIN(  85)						int id = 5;
-HXDLIN(  85)						 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
-HXDLIN(  85)						int Status = _this->status;
-HXDLIN(  85)						bool _hx_tmp;
-HXDLIN(  85)						switch((int)(id)){
+HXLINE(  84)						 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
+HXDLIN(  84)						int id = 5;
+HXDLIN(  84)						 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
+HXDLIN(  84)						int Status = _this->status;
+HXDLIN(  84)						bool _hx_tmp;
+HXDLIN(  84)						switch((int)(id)){
             							case (int)-2: {
-HXLINE(  85)								_hx_tmp = _this1->anyButton(Status);
+HXLINE(  84)								_hx_tmp = _this1->anyButton(Status);
             							}
             							break;
             							case (int)-1: {
-HXLINE(  85)								_hx_tmp = !(_this1->anyButton(Status));
+HXLINE(  84)								_hx_tmp = !(_this1->anyButton(Status));
             							}
             							break;
             							default:{
-HXLINE(  85)								int RawID = ( (int)(_this1->mapping->getRawID(id)) );
-HXDLIN(  85)								 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
-HXDLIN(  85)								if (::hx::IsNotNull( button )) {
-HXLINE(  85)									_hx_tmp = button->hasState(Status);
+HXLINE(  84)								int RawID = ( (int)(_this1->mapping->getRawID(id)) );
+HXDLIN(  84)								 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
+HXDLIN(  84)								if (::hx::IsNotNull( button )) {
+HXLINE(  84)									_hx_tmp = button->hasState(Status);
             								}
             								else {
-HXLINE(  85)									_hx_tmp = false;
+HXLINE(  84)									_hx_tmp = false;
             								}
             							}
             						}
-HXDLIN(  85)						if (_hx_tmp) {
-HXLINE(  87)							::haxe::Log_obj::trace(HX_("RB pressed",32,8e,4c,5a),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),87,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
+HXDLIN(  84)						if (_hx_tmp) {
+HXLINE(  86)							::haxe::Log_obj::trace(HX_("RB pressed",32,8e,4c,5a),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),86,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
             						}
             						else {
-HXLINE(  89)							 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
-HXDLIN(  89)							int id = 18;
-HXDLIN(  89)							 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
-HXDLIN(  89)							int Status = _this->status;
-HXDLIN(  89)							bool _hx_tmp;
-HXDLIN(  89)							switch((int)(id)){
+HXLINE(  88)							 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
+HXDLIN(  88)							int id = 18;
+HXDLIN(  88)							 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
+HXDLIN(  88)							int Status = _this->status;
+HXDLIN(  88)							bool _hx_tmp;
+HXDLIN(  88)							switch((int)(id)){
             								case (int)-2: {
-HXLINE(  89)									_hx_tmp = _this1->anyButton(Status);
+HXLINE(  88)									_hx_tmp = _this1->anyButton(Status);
             								}
             								break;
             								case (int)-1: {
-HXLINE(  89)									_hx_tmp = !(_this1->anyButton(Status));
+HXLINE(  88)									_hx_tmp = !(_this1->anyButton(Status));
             								}
             								break;
             								default:{
-HXLINE(  89)									int RawID = ( (int)(_this1->mapping->getRawID(id)) );
-HXDLIN(  89)									 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
-HXDLIN(  89)									if (::hx::IsNotNull( button )) {
-HXLINE(  89)										_hx_tmp = button->hasState(Status);
+HXLINE(  88)									int RawID = ( (int)(_this1->mapping->getRawID(id)) );
+HXDLIN(  88)									 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
+HXDLIN(  88)									if (::hx::IsNotNull( button )) {
+HXLINE(  88)										_hx_tmp = button->hasState(Status);
             									}
             									else {
-HXLINE(  89)										_hx_tmp = false;
+HXLINE(  88)										_hx_tmp = false;
             									}
             								}
             							}
-HXDLIN(  89)							if (_hx_tmp) {
-HXLINE(  91)								::haxe::Log_obj::trace(HX_("RT pressed",44,f0,45,2f),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),91,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
+HXDLIN(  88)							if (_hx_tmp) {
+HXLINE(  90)								::haxe::Log_obj::trace(HX_("RT pressed",44,f0,45,2f),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),90,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
             							}
             							else {
-HXLINE(  93)								 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
-HXDLIN(  93)								int id = 4;
-HXDLIN(  93)								 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
-HXDLIN(  93)								int Status = _this->status;
-HXDLIN(  93)								bool _hx_tmp;
-HXDLIN(  93)								switch((int)(id)){
+HXLINE(  92)								 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
+HXDLIN(  92)								int id = 4;
+HXDLIN(  92)								 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
+HXDLIN(  92)								int Status = _this->status;
+HXDLIN(  92)								bool _hx_tmp;
+HXDLIN(  92)								switch((int)(id)){
             									case (int)-2: {
-HXLINE(  93)										_hx_tmp = _this1->anyButton(Status);
+HXLINE(  92)										_hx_tmp = _this1->anyButton(Status);
             									}
             									break;
             									case (int)-1: {
-HXLINE(  93)										_hx_tmp = !(_this1->anyButton(Status));
+HXLINE(  92)										_hx_tmp = !(_this1->anyButton(Status));
             									}
             									break;
             									default:{
-HXLINE(  93)										int RawID = ( (int)(_this1->mapping->getRawID(id)) );
-HXDLIN(  93)										 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
-HXDLIN(  93)										if (::hx::IsNotNull( button )) {
-HXLINE(  93)											_hx_tmp = button->hasState(Status);
+HXLINE(  92)										int RawID = ( (int)(_this1->mapping->getRawID(id)) );
+HXDLIN(  92)										 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
+HXDLIN(  92)										if (::hx::IsNotNull( button )) {
+HXLINE(  92)											_hx_tmp = button->hasState(Status);
             										}
             										else {
-HXLINE(  93)											_hx_tmp = false;
+HXLINE(  92)											_hx_tmp = false;
             										}
             									}
             								}
-HXDLIN(  93)								if (_hx_tmp) {
-HXLINE(  95)									::haxe::Log_obj::trace(HX_("LB pressed",f8,be,8d,d8),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),95,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
+HXDLIN(  92)								if (_hx_tmp) {
+HXLINE(  94)									::haxe::Log_obj::trace(HX_("LB pressed",f8,be,8d,d8),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),94,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
             								}
             								else {
-HXLINE(  97)									 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
-HXDLIN(  97)									int id = 17;
-HXDLIN(  97)									 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
-HXDLIN(  97)									int Status = _this->status;
-HXDLIN(  97)									bool _hx_tmp;
-HXDLIN(  97)									switch((int)(id)){
+HXLINE(  96)									 ::flixel::input::gamepad::lists::FlxGamepadButtonList _this = gamepad->justPressed;
+HXDLIN(  96)									int id = 17;
+HXDLIN(  96)									 ::flixel::input::gamepad::FlxGamepad _this1 = _this->gamepad;
+HXDLIN(  96)									int Status = _this->status;
+HXDLIN(  96)									bool _hx_tmp;
+HXDLIN(  96)									switch((int)(id)){
             										case (int)-2: {
-HXLINE(  97)											_hx_tmp = _this1->anyButton(Status);
+HXLINE(  96)											_hx_tmp = _this1->anyButton(Status);
             										}
             										break;
             										case (int)-1: {
-HXLINE(  97)											_hx_tmp = !(_this1->anyButton(Status));
+HXLINE(  96)											_hx_tmp = !(_this1->anyButton(Status));
             										}
             										break;
             										default:{
-HXLINE(  97)											int RawID = ( (int)(_this1->mapping->getRawID(id)) );
-HXDLIN(  97)											 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
-HXDLIN(  97)											if (::hx::IsNotNull( button )) {
-HXLINE(  97)												_hx_tmp = button->hasState(Status);
+HXLINE(  96)											int RawID = ( (int)(_this1->mapping->getRawID(id)) );
+HXDLIN(  96)											 ::flixel::input::gamepad::FlxGamepadButton button = _this1->buttons->__get(RawID).StaticCast<  ::flixel::input::gamepad::FlxGamepadButton >();
+HXDLIN(  96)											if (::hx::IsNotNull( button )) {
+HXLINE(  96)												_hx_tmp = button->hasState(Status);
             											}
             											else {
-HXLINE(  97)												_hx_tmp = false;
+HXLINE(  96)												_hx_tmp = false;
             											}
             										}
             									}
-HXDLIN(  97)									if (_hx_tmp) {
-HXLINE(  99)										::haxe::Log_obj::trace(HX_("LT pressed",0a,21,87,ad),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),99,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
+HXDLIN(  96)									if (_hx_tmp) {
+HXLINE(  98)										::haxe::Log_obj::trace(HX_("LT pressed",0a,21,87,ad),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),98,HX_("PlayState",5d,83,c2,46),HX_("listenForKeys",16,94,56,cd)));
             									}
             								}
             							}
@@ -416,25 +415,42 @@ HXLINE(  99)										::haxe::Log_obj::trace(HX_("LT pressed",0a,21,87,ad),::hx:
 HX_DEFINE_DYNAMIC_FUNC1(PlayState_obj,listenForKeys,(void))
 
 void PlayState_obj::updateWitch(){
-            	HX_STACKFRAME(&_hx_pos_af23706db05c7feb_104_updateWitch)
+            	HX_STACKFRAME(&_hx_pos_af23706db05c7feb_103_updateWitch)
+HXLINE( 104)		this->witchHurtBox->set_x(this->witch->x);
+HXLINE( 105)		this->witchHurtBox->set_y((this->witch->y - ( (Float)(14) )));
             	}
 
 
 HX_DEFINE_DYNAMIC_FUNC0(PlayState_obj,updateWitch,(void))
 
 void PlayState_obj::playerAttack(){
-            	HX_GC_STACKFRAME(&_hx_pos_af23706db05c7feb_110_playerAttack)
-HXLINE( 111)		::haxe::Log_obj::trace(HX_("player attacking",9b,e8,23,d8),::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),111,HX_("PlayState",5d,83,c2,46),HX_("playerAttack",09,9a,01,dc)));
-HXLINE( 112)		this->player->attack();
-HXLINE( 113)		this->playerSwordHitBox =  ::HitBox_obj::__alloc( HX_CTX ,this->player->x,this->player->y,this->player->facing,null(),null());
-HXLINE( 114)		this->add(this->playerSwordHitBox);
-HXLINE( 117)		 ::flixel::FlxCamera camera = null();
-HXDLIN( 117)		bool isEnemyHit = ::flixel::util::FlxCollision_obj::pixelPerfectCheck(( ( ::flixel::FlxSprite)(this->witchHurtBox) ),( ( ::flixel::FlxSprite)(this->playerSwordHitBox) ),255,camera);
-HXLINE( 118)		::haxe::Log_obj::trace(isEnemyHit,::hx::SourceInfo(HX_("source/PlayState.hx",75,24,2b,b8),118,HX_("PlayState",5d,83,c2,46),HX_("playerAttack",09,9a,01,dc)));
+            	HX_GC_STACKFRAME(&_hx_pos_af23706db05c7feb_109_playerAttack)
+HXLINE( 110)		this->player->attack();
+HXLINE( 111)		this->playerSwordHitBox =  ::HitBox_obj::__alloc( HX_CTX ,this->player->x,this->player->y,this->player->facing,null(),null());
+HXLINE( 112)		this->add(this->playerSwordHitBox);
+HXLINE( 114)		bool isEnemyHit = ::flixel::FlxG_obj::overlap(this->witchHurtBox,this->playerSwordHitBox,this->notifyHit_dyn(),this->processHit_dyn());
+HXLINE( 115)		if (isEnemyHit) {
+HXLINE( 117)			this->witch->hitBy(this->player->facing);
+            		}
             	}
 
 
 HX_DEFINE_DYNAMIC_FUNC0(PlayState_obj,playerAttack,(void))
+
+void PlayState_obj::notifyHit( ::HurtBox witchHurtBox, ::HitBox playerSwordHitBox){
+            	HX_STACKFRAME(&_hx_pos_af23706db05c7feb_121_notifyHit)
+            	}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(PlayState_obj,notifyHit,(void))
+
+bool PlayState_obj::processHit( ::HurtBox witchHurtBox, ::HitBox playerSwordHitBox){
+            	HX_STACKFRAME(&_hx_pos_af23706db05c7feb_125_processHit)
+HXDLIN( 125)		return true;
+            	}
+
+
+HX_DEFINE_DYNAMIC_FUNC2(PlayState_obj,processHit,return )
 
 
 ::hx::ObjectPtr< PlayState_obj > PlayState_obj::__new() {
@@ -484,6 +500,12 @@ void PlayState_obj::__Visit(HX_VISIT_PARAMS)
 		if (HX_FIELD_EQ(inName,"player") ) { return ::hx::Val( player ); }
 		if (HX_FIELD_EQ(inName,"create") ) { return ::hx::Val( create_dyn() ); }
 		if (HX_FIELD_EQ(inName,"update") ) { return ::hx::Val( update_dyn() ); }
+		break;
+	case 9:
+		if (HX_FIELD_EQ(inName,"notifyHit") ) { return ::hx::Val( notifyHit_dyn() ); }
+		break;
+	case 10:
+		if (HX_FIELD_EQ(inName,"processHit") ) { return ::hx::Val( processHit_dyn() ); }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"updateWitch") ) { return ::hx::Val( updateWitch_dyn() ); }
@@ -549,6 +571,8 @@ static ::String PlayState_obj_sMemberFields[] = {
 	HX_("listenForKeys",16,94,56,cd),
 	HX_("updateWitch",7e,34,07,b0),
 	HX_("playerAttack",09,9a,01,dc),
+	HX_("notifyHit",0a,47,de,4e),
+	HX_("processHit",24,4b,1c,d7),
 	::String(null()) };
 
 ::hx::Class PlayState_obj::__mClass;

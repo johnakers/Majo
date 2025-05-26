@@ -11553,7 +11553,6 @@
    <depend name="include/flixel/input/mouse/FlxMouse.h"/>
    <depend name="include/flixel/system/frontEnds/DebuggerFrontEnd.h"/>
    <depend name="include/flixel/system/frontEnds/LogFrontEnd.h"/>
-   <depend name="include/flixel/util/FlxCollision.h"/>
    <depend name="include/flixel/util/IFlxDestroyable.h"/>
    <depend name="include/haxe/Exception.h"/>
    <depend name="include/haxe/Log.h"/>

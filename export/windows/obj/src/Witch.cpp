@@ -46,6 +46,7 @@ static const int _hx_array_data_5d9c3b27_1[] = {
 };
 HX_LOCAL_STACK_FRAME(_hx_pos_c44161496fd20d3a_31_update,"Witch","update",0x24c16470,"Witch.update","Witch.hx",31,0x256539f7)
 HX_LOCAL_STACK_FRAME(_hx_pos_c44161496fd20d3a_39_hitBy,"Witch","hitBy",0xce962683,"Witch.hitBy","Witch.hx",39,0x256539f7)
+HX_LOCAL_STACK_FRAME(_hx_pos_c44161496fd20d3a_45_knockback,"Witch","knockback",0xa33feb34,"Witch.knockback","Witch.hx",45,0x256539f7)
 
 void Witch_obj::__construct(Float x,Float y){
             	HX_STACKFRAME(&_hx_pos_c44161496fd20d3a_10_new)
@@ -102,38 +103,45 @@ HXDLIN(  35)			text->set_borderQuality(( (Float)(1) ));
 
 void Witch_obj::hitBy(int playerFacing){
             	HX_STACKFRAME(&_hx_pos_c44161496fd20d3a_39_hitBy)
-HXLINE(  40)		int dx = 0;
-HXLINE(  41)		int dy = 0;
-HXLINE(  42)		int increment = 20;
-HXLINE(  43)		switch((int)(playerFacing)){
+HXLINE(  40)		this->knockback(20,playerFacing);
+HXLINE(  41)		this->hitPoints--;
+            	}
+
+
+HX_DEFINE_DYNAMIC_FUNC1(Witch_obj,hitBy,(void))
+
+void Witch_obj::knockback(int increment,int playerFacing){
+            	HX_STACKFRAME(&_hx_pos_c44161496fd20d3a_45_knockback)
+HXLINE(  46)		int dx = 0;
+HXLINE(  47)		int dy = 0;
+HXLINE(  49)		switch((int)(playerFacing)){
             			case (int)1: {
-HXLINE(  46)				dx = (-1 * increment);
+HXLINE(  52)				dx = (-1 * increment);
             			}
             			break;
             			case (int)16: {
-HXLINE(  48)				dx = increment;
+HXLINE(  54)				dx = increment;
             			}
             			break;
             			case (int)256: {
-HXLINE(  50)				dy = (-1 * increment);
+HXLINE(  56)				dy = (-1 * increment);
             			}
             			break;
             			case (int)4096: {
-HXLINE(  52)				dy = increment;
+HXLINE(  58)				dy = increment;
             			}
             			break;
             			default:{
             			}
             		}
-HXLINE(  56)		::flixel::tweens::FlxTween_obj::tween(::hx::ObjectPtr<OBJ_>(this), ::Dynamic(::hx::Anon_obj::Create(2)
+HXLINE(  62)		::flixel::tweens::FlxTween_obj::tween(::hx::ObjectPtr<OBJ_>(this), ::Dynamic(::hx::Anon_obj::Create(2)
             			->setFixed(0,HX_("x",78,00,00,00),(this->x + dx))
             			->setFixed(1,HX_("y",79,00,00,00),(this->y + dy))),((Float)0.1), ::Dynamic(::hx::Anon_obj::Create(1)
             			->setFixed(0,HX_("ease",ee,8b,0c,43),::flixel::tweens::FlxEase_obj::circOut_dyn())));
-HXLINE(  63)		this->hitPoints--;
             	}
 
 
-HX_DEFINE_DYNAMIC_FUNC1(Witch_obj,hitBy,(void))
+HX_DEFINE_DYNAMIC_FUNC2(Witch_obj,knockback,(void))
 
 
 ::hx::ObjectPtr< Witch_obj > Witch_obj::__new(Float x,Float y) {
@@ -164,6 +172,7 @@ Witch_obj::Witch_obj()
 		break;
 	case 9:
 		if (HX_FIELD_EQ(inName,"hitPoints") ) { return ::hx::Val( hitPoints ); }
+		if (HX_FIELD_EQ(inName,"knockback") ) { return ::hx::Val( knockback_dyn() ); }
 	}
 	return super::__Field(inName,inCallProp);
 }
@@ -195,6 +204,7 @@ static ::String Witch_obj_sMemberFields[] = {
 	HX_("hitPoints",d6,cc,3f,2b),
 	HX_("update",09,86,05,87),
 	HX_("hitBy",0a,fb,6b,27),
+	HX_("knockback",3b,0f,a8,38),
 	::String(null()) };
 
 ::hx::Class Witch_obj::__mClass;

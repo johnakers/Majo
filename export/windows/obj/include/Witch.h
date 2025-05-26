@@ -52,6 +52,9 @@ class HXCPP_CLASS_ATTRIBUTES Witch_obj : public  ::flixel::FlxSprite_obj
 		void hitBy(int playerFacing);
 		::Dynamic hitBy_dyn();
 
+		void knockback(int increment,int playerFacing);
+		::Dynamic knockback_dyn();
+
 };
 
 

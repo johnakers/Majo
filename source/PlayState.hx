@@ -27,7 +27,7 @@ class PlayState extends FlxState
 
 		// --- witch
 		witch = new Witch(FlxG.width / 3, FlxG.height / 2);
-		var witchHurtBox = new HurtBox(witch.x, witch.y - 14, RIGHT, 14, 28);
+		witchHurtBox = new HurtBox(witch.x, witch.y - 14, RIGHT, 14, 28);
 		add(witch);
 		add(witchHurtBox);
 
@@ -50,9 +50,9 @@ class PlayState extends FlxState
 		}
 		else
 		{
+			updateWitch();
 			listenForKeys(gamepad);
 		}
-		updateWitch();
 	}
 
 	// for the future: think about Menus
@@ -75,7 +75,6 @@ class PlayState extends FlxState
 			else
 			{
 				playerAttack();
-				// FlxG.collide(playerSwordHitBox, witchHurtBox, swordAttackCollision);
 			}
 		}
 		else if (gamepad.justPressed.B)
@@ -102,8 +101,8 @@ class PlayState extends FlxState
 
 	private function updateWitch()
 	{
-		// witchHurtBox.x = witch.x;
-		// witchHurtBox.y = witch.y - 14;
+		witchHurtBox.x = witch.x;
+		witchHurtBox.y = witch.y - 14;
 	}
 
 	private function playerAttack()
@@ -112,8 +111,17 @@ class PlayState extends FlxState
 		playerSwordHitBox = new HitBox(player.x, player.y, player.facing);
 		add(playerSwordHitBox); // calls kill() on self after 0.5s
 
-		// ? this crashes
-		var isEnemyHit = FlxG.pixelPerfectOverlap(witchHurtBox, playerSwordHitBox);
-		trace(isEnemyHit);
+		var isEnemyHit = FlxG.overlap(witchHurtBox, playerSwordHitBox, notifyHit, processHit);
+		if (isEnemyHit)
+		{
+			witch.hitBy(player.facing);
+		}
+	}
+
+	private function notifyHit(witchHurtBox:HurtBox, playerSwordHitBox:HitBox):Void {}
+
+	private function processHit(witchHurtBox:HurtBox, playerSwordHitBox:HitBox):Bool
+	{
+		return true;
 	}
 }

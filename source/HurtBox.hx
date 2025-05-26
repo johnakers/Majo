@@ -1,8 +1,6 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.util.FlxColor;
 import flixel.util.FlxDirectionFlags;
 

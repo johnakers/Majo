@@ -80,6 +80,7 @@ HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_94_updateMovement,"Player","update
 HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_135_setFacingDirection,"Player","setFacingDirection",0x81edbb10,"Player.setFacingDirection","Player.hx",135,0xa27fc9dd)
 HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_162_frameRangeArray,"Player","frameRangeArray",0x194d363c,"Player.frameRangeArray","Player.hx",162,0xa27fc9dd)
 HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_175_attack,"Player","attack",0x4b035515,"Player.attack","Player.hx",175,0xa27fc9dd)
+HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_196_knockback,"Player","knockback",0xee77c40e,"Player.knockback","Player.hx",196,0xa27fc9dd)
 HX_LOCAL_STACK_FRAME(_hx_pos_9d6b32c958ffa4d3_18_boot,"Player","boot",0x156e003f,"Player.boot","Player.hx",18,0xa27fc9dd)
 
 void Player_obj::__construct(::hx::Null< Float >  __o_x,::hx::Null< Float >  __o_y){
@@ -289,37 +290,44 @@ HXLINE( 177)		 ::flixel::animation::FlxAnimationController _hx_tmp = this->anima
 HXDLIN( 177)		::String _hx_tmp1 = (this->facingMap->get(this->facing) + HX_("slash",3d,c0,c1,7e));
 HXDLIN( 177)		_hx_tmp->play((_hx_tmp1 + ::hx::Mod(this->attackComboCounter,2)),null(),null(),null());
 HXLINE( 178)		this->attackComboCounter++;
-HXLINE( 192)		int dx = 0;
-HXLINE( 193)		int dy = 0;
-HXLINE( 194)		int increment = 10;
-HXLINE( 195)		switch((int)(this->facing)){
+HXLINE( 192)		this->knockback(10);
+            	}
+
+
+HX_DEFINE_DYNAMIC_FUNC0(Player_obj,attack,(void))
+
+void Player_obj::knockback(int increment){
+            	HX_STACKFRAME(&_hx_pos_9d6b32c958ffa4d3_196_knockback)
+HXLINE( 197)		int dx = 0;
+HXLINE( 198)		int dy = 0;
+HXLINE( 200)		switch((int)(this->facing)){
             			case (int)1: {
-HXLINE( 198)				dx = (-1 * increment);
+HXLINE( 203)				dx = (-1 * increment);
             			}
             			break;
             			case (int)16: {
-HXLINE( 200)				dx = increment;
+HXLINE( 205)				dx = increment;
             			}
             			break;
             			case (int)256: {
-HXLINE( 202)				dy = (-1 * increment);
+HXLINE( 207)				dy = (-1 * increment);
             			}
             			break;
             			case (int)4096: {
-HXLINE( 204)				dy = increment;
+HXLINE( 209)				dy = increment;
             			}
             			break;
             			default:{
             			}
             		}
-HXLINE( 208)		::flixel::tweens::FlxTween_obj::tween(::hx::ObjectPtr<OBJ_>(this), ::Dynamic(::hx::Anon_obj::Create(2)
+HXLINE( 213)		::flixel::tweens::FlxTween_obj::tween(::hx::ObjectPtr<OBJ_>(this), ::Dynamic(::hx::Anon_obj::Create(2)
             			->setFixed(0,HX_("x",78,00,00,00),(this->x + dx))
             			->setFixed(1,HX_("y",79,00,00,00),(this->y + dy))),((Float)0.1), ::Dynamic(::hx::Anon_obj::Create(1)
             			->setFixed(0,HX_("ease",ee,8b,0c,43),::flixel::tweens::FlxEase_obj::circOut_dyn())));
             	}
 
 
-HX_DEFINE_DYNAMIC_FUNC0(Player_obj,attack,(void))
+HX_DEFINE_DYNAMIC_FUNC1(Player_obj,knockback,(void))
 
 int Player_obj::DEFAULT_SPRITE_SIZE;
 
@@ -395,6 +403,7 @@ void Player_obj::__Visit(HX_VISIT_PARAMS)
 		if (HX_FIELD_EQ(inName,"facingMap") ) { return ::hx::Val( facingMap ); }
 		if (HX_FIELD_EQ(inName,"attacking") ) { return ::hx::Val( attacking ); }
 		if (HX_FIELD_EQ(inName,"weaponMap") ) { return ::hx::Val( weaponMap ); }
+		if (HX_FIELD_EQ(inName,"knockback") ) { return ::hx::Val( knockback_dyn() ); }
 		break;
 	case 11:
 		if (HX_FIELD_EQ(inName,"weaponIndex") ) { return ::hx::Val( weaponIndex ); }
@@ -498,6 +507,7 @@ static ::String Player_obj_sMemberFields[] = {
 	HX_("setFacingDirection",43,22,f3,0f),
 	HX_("frameRangeArray",29,a1,8d,40),
 	HX_("attack",c8,fb,0f,e0),
+	HX_("knockback",3b,0f,a8,38),
 	::String(null()) };
 
 static void Player_obj_sMarkStatics(HX_MARK_PARAMS) {
