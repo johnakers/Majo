@@ -60,7 +60,7 @@ class PlayState extends FlxState
 	{
 		if (gamepad.justPressed.A)
 		{
-			trace("X pressed");
+			dash();
 		}
 		else if (gamepad.justPressed.Y)
 		{
@@ -123,5 +123,9 @@ class PlayState extends FlxState
 	private function processHit(witchHurtBox:HurtBox, playerSwordHitBox:HitBox):Bool
 	{
 		return true;
+	}
+	private function dash()
+	{
+		player.dash();
 	}
 }
