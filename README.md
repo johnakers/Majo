@@ -1,5 +1,13 @@
 # Majo [魔女] - Pre
 
+Majo (working name), is a little [Hyper Light Drifter](https://www.youtube.com/watch?v=nWufEJ1Ava0)-like game in [HaxeFlixel](https://haxeflixel.com/).
+
+### Development
+
+```bash
+$ lime test window
+```
+
 ### Controls
 
 #### PlayStation
