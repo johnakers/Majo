@@ -1,32 +1,19 @@
 package;
 
-import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import flixel.util.FlxDirectionFlags;
 
 class HitBox extends FlxSprite
 {
 	var timer:Float = 0.0;
-	var ttl:Float = 0.5;
+	var ttl:Float = 0.5; // maybe extend this to be changeable
 
-	public function new(x:Float, y:Float, playerFacing:FlxDirectionFlags, width:Int = 32, height:Int = 32):Void
+	public function new(x:Float, y:Float, width:Int = 32, height:Int = 32, offsetX:Int = 0, offsetY:Int = 0):Void
 	{
-		switch (playerFacing)
-		{
-			case RIGHT:
-				super(x + 8, y - 8);
-				setSize(width, height);
-			case LEFT:
-				super(x - 24, y - 8);
-				setSize(width, height);
-			case UP:
-				super(x - 8, y - 20);
-				setSize(width, height);
-			case DOWN:
-				super(x - 8, y);
-				setSize(width, height);
-			case _:
-		}
+		debugBoundingBoxColor = FlxColor.MAGENTA;
+		super(x, y);
+		setSize(width, height);
 	}
 
 	override function update(elapsed:Float)

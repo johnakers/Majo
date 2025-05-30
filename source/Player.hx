@@ -3,34 +3,36 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.math.FlxAngle;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
 import flixel.util.FlxDirectionFlags;
 
 class Player extends FlxSprite
 {
-	final DEBUGGING:Bool = true;
 	var speed:Float = 100;
 
 	static inline var DEFAULT_SPRITE_SIZE:Int = 64;
 
-	var facingMap:Map<FlxDirectionFlags, String> = [DOWN => "d_", UP => "u_", LEFT => "s_", RIGHT => "s_",];
-	var attackComboCounter:Int = 0;
-
 	public var attacking:Bool = false;
-	public var weaponMap:Map<Int, String> = [0 => "SWORD", 1 => "BOW"];
-	public var weaponIndex:Int = 0;
-
 	public var dashing:Bool = false;
+	public var attackComboCounter:Int = 0;
+	public var maxHp:Int = 3;
+	public var currentHp:Int = 2;
 
-	var dashTimer:Float = 1.0;
-	var timeToATtack:Float = 0.25;
+	var facingMap:Map<FlxDirectionFlags, String> = [DOWN => "d_", UP => "u_", LEFT => "s_", RIGHT => "s_",];
+	var weapons:Array<String> = ["sword", "bow"];
+	var weaponIndex:Int = 0;
+	var dashTimer:Float = 0.5;
+	var timeToATtack:Float = 0.5;
 	var timer:Float = 0.0;
 	var h:Float;
 	var v:Float;
+
+	// quasi getter
+	public function currentWeapon()
+	{
+		return weapons[weaponIndex % weapons.length];
+	}
 
 	public function new(x:Float = 0, y:Float = 0)
 	{
@@ -51,18 +53,20 @@ class Player extends FlxSprite
 		animation.add("d_idle", [53]);
 		animation.add("s_idle", [0]);
 		animation.add("u_idle", [104]);
-		animation.add("d_walk", frameRangeArray(98, 103), 24);
-		animation.add("s_walk", frameRangeArray(46, 51), 24);
-		animation.add("u_walk", frameRangeArray(150, 155), 24);
-		animation.add("u_slash0", frameRangeArray(135, 140), 24);
-		animation.add("u_slash1", frameRangeArray(141, 146), 24);
-		animation.add("d_slash0", frameRangeArray(83, 88), 24);
-		animation.add("d_slash1", frameRangeArray(89, 94), 24);
-		animation.add("s_slash0", frameRangeArray(31, 36), 24);
-		animation.add("s_slash1", frameRangeArray(37, 42), 24);
-		animation.add("u_dash", frameRangeArray(115, 118), 3);
-		animation.add("s_dash", frameRangeArray(11, 14), 3);
-		animation.add("d_dash", frameRangeArray(63, 66), 3);
+		animation.add("d_walk", frameRangeArray(98, 103));
+		animation.add("s_walk", frameRangeArray(46, 51));
+		animation.add("u_walk", frameRangeArray(150, 155));
+
+		animation.add("u_slash0", frameRangeArray(135, 140));
+		animation.add("u_slash1", frameRangeArray(141, 146));
+		animation.add("d_slash0", frameRangeArray(83, 88));
+		animation.add("d_slash1", frameRangeArray(89, 94));
+		animation.add("s_slash0", frameRangeArray(31, 36));
+		animation.add("s_slash1", frameRangeArray(37, 42));
+
+		animation.add("u_dash", frameRangeArray(115, 118));
+		animation.add("s_dash", frameRangeArray(11, 14));
+		animation.add("d_dash", frameRangeArray(63, 66));
 
 		// friction
 		drag.x = drag.y = 900;
@@ -73,44 +77,24 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 
-		// gamepad is also defined in PlayState :think:
+		// gamepad is also defined in PlayState......................
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-		// if (gamepad == null)
-		// {
-		// 	throw "gamepad not found";
-		// }
 
-		// we don't move the player when attacking/dashing and we wait for the animation to complete
-		// probably should refactor this, eventually
-		if (!attacking || !dashing)
+		// we don't move the player when doing another "action" and we wait for the animation to complete
+		timer += elapsed;
+		if (!attacking)
 		{
 			updateMovement(gamepad);
 		}
-		else
+		else if (timer >= timeToATtack)
 		{
-			timer += elapsed;
-			if (timer >= timeToATtack)
-			{
-				timer = 0;
-				attacking = false;
-			}
-			if (timer >= dashTimer)
-			{
-				timer = 0;
-				dashing = false;
-				speed = 100;
-			}
+			timer = 0;
+			attacking = false;
 		}
 	}
 
 	function updateMovement(gamepad:FlxGamepad):Void
 	{
-		if (gamepad == null)
-		{
-			throw "For some reason, gamepad here is null and this prints to JS console";
-		}
-
-		// maybe move these to instance variables if we need them for other stuff
 		h = gamepad.getXAxis(LEFT_ANALOG_STICK) * speed;
 		v = gamepad.getYAxis(LEFT_ANALOG_STICK) * speed;
 
@@ -143,28 +127,16 @@ class Player extends FlxSprite
 		}
 	}
 
-	// switch weapon
-	// combo if sword
-	//   need a combo counter
+	// pending weapon
 	public function attack():Void
 	{
 		attacking = true;
-		animation.play(facingMap[facing] + "slash" + attackComboCounter % 2);
-		attackComboCounter++; // temp -> combos
-		// hitbox
-		// move towards enemy
-
-		// -- the below has the right idea but moves in the wrong direction
-		// -- angle for when we attack we want to move a few pixels in that direction
-		// -- most likely need to normalize the angle based on the player since 0,0 is top left
-		// trace('v: $v, h: $h');
-		// var a = Math.atan2(v, h) * FlxAngle.TO_DEG;
-		// trace(a);
-		// var d = 10;
-		// var dx = d * Math.sin(a);
-		// var dy = d * Math.cos(a);
-		// trace('dx: $dx, dy: $dy');
-		knockback(10);
+		if (currentWeapon() == "sword")
+		{
+			animation.play(facingMap[facing] + "slash" + attackComboCounter % 2);
+			attackComboCounter++;
+			knockback(10);
+		}
 	}
 
 	public function dash()
@@ -172,6 +144,12 @@ class Player extends FlxSprite
 		dashing = true;
 		animation.play(facingMap[facing] + "dash");
 		speed = 300;
+	}
+
+	public function toggleWeapon()
+	{
+		trace('Switch Weapon pressed');
+		weaponIndex++;
 	}
 
 	private function setFacingDirection(h:Float, v:Float):Void

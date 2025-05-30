@@ -9,6 +9,7 @@ import flixel.util.FlxDirectionFlags;
 
 class Witch extends FlxSprite
 {
+	public var maxHitPpoints:Int = 3;
 	public var hitPoints:Int = 3;
 
 	public function new(x:Float, y:Float)

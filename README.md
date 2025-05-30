@@ -8,6 +8,18 @@ Majo (working name), is a little [Hyper Light Drifter](https://www.youtube.com/w
 $ lime test window
 ```
 
+### Gameplay
+
+- [x] Player movement with gamepad
+- [ ] Player attack
+- [x] Player moves forward when attacking
+- [ ] Enemy knockbacks when attacked
+- [ ] Player 2 hit combo
+- [ ] Player dash w/ animation
+- [ ] Player "hurt"
+- [ ] Player knockbacks when hurt
+      ...
+
 ### Controls
 
 #### PlayStation
