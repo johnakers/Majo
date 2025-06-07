@@ -2,28 +2,32 @@ package;
 
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
-import flixel.util.FlxDirectionFlags;
 
 class HitBox extends FlxSprite
 {
-	var timer:Float = 0.0;
-	var ttl:Float = 0.5; // maybe extend this to be changeable
+	var data:Dynamic;
 
-	public function new(x:Float, y:Float, width:Int = 32, height:Int = 32, offsetX:Int = 0, offsetY:Int = 0):Void
+	public function new(x:Float, y:Float, width:Float, height:Float, options)
 	{
-		debugBoundingBoxColor = FlxColor.MAGENTA;
 		super(x, y);
+		loadGraphic("assets/images/invisible32x32.png", false, cast(width, Int), cast(height, Int));
 		setSize(width, height);
+		data = options;
+		offset.set(data.xOffset, data.yOffset);
+		facing = data.heading;
+
+		kill();
 	}
 
-	override function update(elapsed:Float)
+	override function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		debugBoundingBoxColor = FlxColor.MAGENTA;
+	}
 
-		timer += elapsed;
-		if (timer >= ttl)
-		{
-			kill();
-		}
+	public function updatePositionOffBase(baseSprite:FlxSprite)
+	{
+		x = baseSprite.x + data.xOffset;
+		y = baseSprite.y + data.yOffset;
 	}
 }

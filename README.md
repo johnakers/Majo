@@ -1,24 +1,12 @@
 # Majo [魔女] - Pre
 
-Majo (working name), is a little [Hyper Light Drifter](https://www.youtube.com/watch?v=nWufEJ1Ava0)-like game in [HaxeFlixel](https://haxeflixel.com/).
+Majo (working name), is a little [Legend of Zelda](https://en.wikipedia.org/wiki/The_Legend_of_Zelda) / [Hyper Light Drifter](https://www.youtube.com/watch?v=nWufEJ1Ava0)-like game in [HaxeFlixel](https://haxeflixel.com/).
 
 ### Development
 
 ```bash
-$ lime test window
+$ lime test window -debug
 ```
-
-### Gameplay
-
-- [x] Player movement with gamepad
-- [ ] Player attack
-- [x] Player moves forward when attacking
-- [ ] Enemy knockbacks when attacked
-- [ ] Player 2 hit combo
-- [ ] Player dash w/ animation
-- [ ] Player "hurt"
-- [ ] Player knockbacks when hurt
-      ...
 
 ### Controls
 
